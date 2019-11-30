@@ -17,12 +17,6 @@ router.route('/add').post((req, res) => {
 		username: req.body.username,
 		password: req.body.password,
 	  }
-	
-	//   User.count({username: userData.username}, (err, count) => {
-	// 	  if (count > 0) {
-	// 		  res.json(err);
-	// 	  }
-	//   })
 
 	  //use schema.create to insert data into the db
 	  User.create(userData, function (err, user) {

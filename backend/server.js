@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const PORT = process.env.PORT || 4000;
 
 
@@ -9,6 +10,18 @@ require('dotenv').config();
 
 app.use(cors());
 app.use(express.json());
+
+//Allows us to access browser cookies
+app.use(cookieParser());
+app.use(session({
+    key: 'user_sid',
+    secret: 'somerandonstuffs',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000
+    }
+}));
 
 //Connect app to MOngoDb
 const uri = process.env.ATLAS_URI;
@@ -19,10 +32,10 @@ connection.once('open', () => {
 });
 
 //Routing 
-// const exercisesRouter = require('./routes/exercises');
+const bookRouter = require('./routes/books');
 const usersRouter = require('./routes/user');
 
-// app.use('/books', exercisesRouter);
+app.use('/books', bookRouter);
 app.use('/users', usersRouter);
 
 app.listen(PORT, function() {

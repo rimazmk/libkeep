@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
+    _id: { type: Schema.ObjectId, auto: true },
     email: {
       type: String,
       unique: true,
@@ -19,7 +20,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true
-    }
+    },
   },
   {
     timestamps: true
